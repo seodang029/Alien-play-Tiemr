@@ -7,6 +7,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var ch = true
+    var d = true
     var counter = 1
     // Timer 객체 생성
     var myTimer = Timer()
@@ -21,15 +23,14 @@ class ViewController: UIViewController {
     
     @IBAction func play(_ sender: Any) {
         
-        myTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.doAnimation), userInfo: nil, repeats: true)
+        if ch == true {
+            myTimer.invalidate()
+            ch = false
+        } else if ch == false {
+            myTimer = Timer.scheduledTimer(timeInterval:  0.1, target: self, selector: #selector(ViewController.doAnimation), userInfo: nil, repeats: true)
+            ch = true
     }
-    
-    @IBAction func stop(_ sender: Any) {
-        
-        myTimer.invalidate()
-    }
-    
-    // Timer에 의해 동적으로 호출되는 함수
+}
     @objc func doAnimation() {
         if counter == 5 {
             counter = 1
